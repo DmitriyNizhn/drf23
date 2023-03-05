@@ -5,7 +5,6 @@ import './App.css';
 import UserList from "./components/User.js";
 
 
-
 class App extends React.Component {
     constructor(props) {
         super(props)
