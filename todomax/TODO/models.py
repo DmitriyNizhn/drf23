@@ -8,7 +8,7 @@ from users.models import User
 
 class Project(models.Model):
     title = models.CharField(max_length=32)
-    url_rep = models.URLField(null= True, blank=True)
+    url_rep = models.URLField(null=True, blank=True)
     authors = models.ManyToManyField(User)
 
 
