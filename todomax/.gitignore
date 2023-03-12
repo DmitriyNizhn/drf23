@@ -293,5 +293,8 @@ fabric.properties
 # Azure Toolkit for IntelliJ plugin
 # https://plugins.jetbrains.com/plugin/8053-azure-toolkit-for-intellij
 .idea/**/azureSettings.xml
+todomax/__pycache__/settings.cpython-310.pyc
 
+TODO/__pycache__/views.cpython-310.pyc
 # End of https://www.toptal.com/developers/gitignore/api/django,database,pycharm
+

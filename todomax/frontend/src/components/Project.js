@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 
 
@@ -8,7 +9,7 @@ const ProjectItem = ({project}) => {
         <tr>
 
             <td>
-                {project.id}
+                <Link to={`/projects/${project.id}`}>{project.id}</Link>
             </td>
             <td>
                 {project.title}
@@ -44,4 +45,6 @@ const ProjectList = ({projects}) => {
         </table>
     )
 }
+
+
 export default ProjectList
