@@ -7,7 +7,9 @@ import TodoList from "./components/Todo.js";
 import ProjectList from "./components/Project.js";
 import NotFound404 from "./components/PageNotFound.js";
 // import LoginForm from "./components/Auth.js";
-import {Route, BrowserRouter, Routes, Link, Navigate} from "react-router-dom";
+import { Route, BrowserRouter, Routes, Link, Navigate } from "react-router-dom";
+
+
 
 
 
@@ -43,29 +45,29 @@ class App extends React.Component {
 
     componentDidMount() {
 
-        axios.get(('http://127.0.0.1:8000/api/users')).then(response => {
+        axios.get('http://127.0.0.1:8000/api/users').then(response => {
             this.setState(
                 {
                     'users': response.data.results
                 }
             )
-        }).catch(error => console.log(error))
+        }).catch(error => console.log(error.response))
 
-        axios.get(('http://127.0.0.1:8000/api/projects')).then(response => {
+        axios.get('http://127.0.0.1:8000/api/projects').then(response => {
             this.setState(
                 {
                     'projects': response.data.results
                 }
             )
-        }).catch(error => console.log(error))
+        }).catch(error => console.log(error.response))
 
-        axios.get(('http://127.0.0.1:8000/api/todos')).then(response => {
+        axios.get('http://127.0.0.1:8000/api/todos').then(response => {
             this.setState(
                 {
                     'todos': response.data.results
                 }
             )
-        }).catch(error => console.log(error))
+        }).catch(error => console.log(error.response))
 
     }
 
@@ -89,18 +91,18 @@ class App extends React.Component {
                             </li>
                         </ul>
                     </nav>
-                    <hr/>
+                    <hr />
 
                     <Routes>
-                        <Route path='/' element={<UserList users={this.state.users}/>}/>
-                        <Route path='/projects' element={<ProjectList projects={this.state.projects}/>}/>
-                        <Route path='/todos' element={<TodoList todos={this.state.todos}/>}/>
-                        <Route path='/project' element={<Navigate to='/projects'/>}/>
-                        <Route path='/todo' element={<Navigate to='/todos'/>}/>
+                        <Route path='/' element={<UserList users={this.state.users} />} />
+                        <Route path='/projects' element={<ProjectList projects={this.state.projects} />} />
+                        <Route path='/todos' element={<TodoList todos={this.state.todos} />} />
+                        <Route path='/project' element={<Navigate to='/projects' />} />
+                        <Route path='/todo' element={<Navigate to='/todos' />} />
                         {/*<Route path='/login' element={()=> <LoginForm get_token = {(username,password)=>this.get_token(username,password)}/>}/>*/}
 
 
-                        <Route path='*' element={<NotFound404/>}/>
+                        <Route path='*' element={<NotFound404 />} />
 
 
                     </Routes>
