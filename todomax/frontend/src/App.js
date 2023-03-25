@@ -6,7 +6,7 @@ import UserList from "./components/User.js";
 import TodoList from "./components/Todo.js";
 import ProjectList from "./components/Project.js";
 import NotFound404 from "./components/PageNotFound.js";
-// import LoginForm from "./components/Auth.js";
+import LoginForm from "./components/Auth.js";
 import {Route, BrowserRouter, Routes, Link, Navigate} from "react-router-dom";
 
 
@@ -17,26 +17,29 @@ class App extends React.Component {
             'users': [],
             'projects': [],
             'todos': [],
+            'token':'',
             // 'projectsInfo': [],
 
         }
     }
 
 
-    // get_token(username,password){
-    //     console.log(username,password)
-    //     // axios.post(('http://127.0.0.1:8000/api-token-auth/', {'username': username, 'password': password})).then(response => {
-    //     //
-    //     //         {
-    //     //             console.log(response.data['token'])
-    //     //         }
-    //     //
-    //     // }).catch(error => console.log(error))
-    // }
-    //
-    // logout(){
-    //
-    // }
+    get_token(username,password){
+        console.log(username,password)
+        axios.post('http://127.0.0.1:8000/api-token-auth/',
+            {'username': username, 'password': password})
+            .then(response =>
+
+                {
+                    console.log(response.data['token'])
+                }
+
+        ).catch(error => console.log(error))
+    }
+
+    logout(){
+
+    }
 
     componentDidMount() {
 
@@ -94,7 +97,7 @@ class App extends React.Component {
                         <Route path='/todos' element={<TodoList todos={this.state.todos}/>}/>
                         <Route path='/project' element={<Navigate to='/projects'/>}/>
                         <Route path='/todo' element={<Navigate to='/todos'/>}/>
-                        {/*<Route path='/login' element={()=> <LoginForm get_token = {(username,password)=>this.get_token(username,password)}/>}/>*/}
+                        <Route path='/login' element={<LoginForm get_token = {(username,password)=>this.get_token(username,password)}/>}/>
 
 
                         <Route path='*' element={<NotFound404/>}/>
