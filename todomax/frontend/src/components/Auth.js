@@ -12,7 +12,7 @@ class LoginForm extends React.Component {
                 [event.target.name]: event.target.value
             }
         )
-        console.log(event.target.name,  event.target.value);
+        ;
 
     }
 
