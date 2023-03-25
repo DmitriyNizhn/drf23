@@ -63,7 +63,6 @@ class App extends React.Component {
     }
 
     get_token(username, password) {
-        console.log(username, password)
         axios.post('http://127.0.0.1:8000/api-token-auth/',
             {'username': username, 'password': password})
             .then(response => {
@@ -140,6 +139,7 @@ class App extends React.Component {
                         <Route path='/todo' element={<Navigate to='/todos'/>}/>
                         <Route path='/login' element={<LoginForm
                             get_token={(username, password) => this.get_token(username, password)}/>}/>
+
 
 
                         <Route path='*' element={<NotFound404/>}/>
