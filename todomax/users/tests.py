@@ -70,13 +70,4 @@ class TestUserViewSet(TestCase):
         pass
 
 
-class TestThmthViewSet(APITestCase):
 
-    def setUp(self) -> None:
-        self.name = 'admin'
-        self.password = 'admin_12359876'
-        self.email = 'admin@mail.ru'
-        self.url = '/api/users/'
-        self.data = {'username': 'Pit', 'email': 'pit_djanson@mail.ru'}
-        self.upd_data = {'username': 'bigPit', 'email': 'pit_djanson@mail.ru'}
-        self.admin = User.objects.create_superuser(self.name, self.email, self.password)

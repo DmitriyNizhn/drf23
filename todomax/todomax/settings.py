@@ -143,6 +143,7 @@ AUTH_USER_MODEL = 'users.User'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # from rest_framework.permissions import DjangoModelPermissions
+# DjangoModelPermissionsOrAnonReadOnly
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
