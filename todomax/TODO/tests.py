@@ -46,23 +46,11 @@ class TestThmthViewSet(APITestCase):
         project.authors.set([])
         self.client.logout()
 
-
-class TestProjViewSet(TestCase):
-
-    def setUp(self) -> None:
-        self.url_prj = '/api/projects/'
-        self.url_td = '/api/todos/'
-        self.name = 'dmitriy'
-        self.password = '01021994'
-        self.email = 'admin@mail.ru'
-        self.data_td = {'text': '', 'in_work': True}
-        self.data_prj = {'title': '', 'url_rep': ''}
-        self.upd_data_prj = {'title': 'update', 'url_rep': ''}
-        self.upd_data = {'username': 'bigPit', 'email': 'pit_djanson@mail.ru'}
-        self.admin = User.objects.create_superuser(self.name, self.email, self.password)
-
-    def test_get_detail(self):
-        project = Project.objects.create(**self.data_prj)
-        client = APIClient()
-        response = client.get(f'{self.url_prj}{project.id}/')
+    def test_put_title_prj_mix(self):
+        project = mixer.blend(Project, authors__name='admin')
+        self.client.login(username=self.name, password=self.password)
+        response = self.client.put(f'{self.url_prj}{project.id}/',
+                                   {'title': 'update', 'url_rep': '', 'authors': [project.authors.first().id]})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        response_project = json.loads(response.content)
+        self.assertEqual(response_project['title'], 'update')
