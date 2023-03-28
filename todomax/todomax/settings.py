@@ -54,9 +54,9 @@ INSTALLED_APPS = [
     # 'rest_framework_simplejwt.token_blacklist',
     'users',
     'TODO',
+    'drf_yasg',
 
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -164,6 +164,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
 
     ],
-
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
 
 }
