@@ -9,6 +9,7 @@ import NotFound404 from "./components/PageNotFound.js";
 import LoginForm from "./components/Auth.js";
 import {Route, BrowserRouter, Routes, Link, Navigate} from "react-router-dom";
 import Cookies from "universal-cookie";
+import ProjectForm from "./components/ProjectForm.js";
 
 
 class App extends React.Component {
@@ -22,6 +23,31 @@ class App extends React.Component {
             // 'projectsInfo': [],
 
         }
+    }
+
+    createProject(title, author) {
+        console.log(title, author, 'createProject')
+        const headers = this.get_headers()
+        const data = {title: title, authors: [author]}
+        // console.log(data)
+        axios.post(`http://127.0.0.1:8000/api/projects/`, data, {headers}).then(
+            response => {
+
+                this.load_data()
+            }
+        ).catch(error => {
+            console.log(error)
+            this.setState({projects: []})
+        })
+    }
+
+    deleteProject(id) {
+
+        const headers = this.get_headers()
+        axios.delete(`http://127.0.0.1:8000/api/projects/${id}`, {headers}).then(response => {
+            this.load_data()
+
+        }).catch(error => console.log(error))
     }
 
     load_data() {
@@ -77,7 +103,7 @@ class App extends React.Component {
 
     get_headers() {
         let headers = {
-            'Content-Type': 'applications/json'
+            'Content-Type': 'application/json'
         }
 
         if (this.is_auth()) {
@@ -121,7 +147,7 @@ class App extends React.Component {
                                 <Link to={'/todos'}>todos</Link>
                             </li>
                             <li>
-                                {this.is_auth() ? <button onClick={() => this.logout()}>Logout</button>:
+                                {this.is_auth() ? <button onClick={() => this.logout()}>Logout</button> :
                                     <button>
                                         <Link to={'/login'}>Login</Link>
                                     </button>
@@ -133,13 +159,15 @@ class App extends React.Component {
 
                     <Routes>
                         <Route path='/' element={<UserList users={this.state.users}/>}/>
-                        <Route path='/projects' element={<ProjectList projects={this.state.projects}/>}/>
+                        <Route path='/projects' element={<ProjectList projects={this.state.projects}
+                                                                      deleteProject={(id) => this.deleteProject(id)}/>}/>
+                        <Route path='/projects/create' element={<ProjectForm
+                            createProject={(title, author) => this.createProject(title, author)}/>}/>
                         <Route path='/todos' element={<TodoList todos={this.state.todos}/>}/>
                         <Route path='/project' element={<Navigate to='/projects'/>}/>
                         <Route path='/todo' element={<Navigate to='/todos'/>}/>
                         <Route path='/login' element={<LoginForm
                             get_token={(username, password) => this.get_token(username, password)}/>}/>
-
 
 
                         <Route path='*' element={<NotFound404/>}/>
