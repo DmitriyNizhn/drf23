@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'users',
     'TODO',
     'drf_yasg',
+    'graphene_django'
 
 ]
 
@@ -166,4 +167,8 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
 
+}
+
+GRAPHENE = {
+    "SCHEMA": "todomax.schema.schema"
 }
