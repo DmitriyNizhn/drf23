@@ -14,7 +14,7 @@ class UserViewSet(ModelViewSet):
 
 
 class UserLimitOffsetPagination(LimitOffsetPagination):
-    default_limit = 10
+    default_limit = 30
 
 
 # class UserCustomViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, DestroyModelMixin,

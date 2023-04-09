@@ -1,9 +1,10 @@
 import React from 'react';
 
+
 class ProjectForm extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {title: '', author: 0}
+        this.state = {'title': '', 'users': []}
     }
 
     handleChange(event) {
@@ -12,36 +13,55 @@ class ProjectForm extends React.Component {
                 [event.target.name]: event.target.value
             }
         )
-        ;
+    }
 
+    handleUsersSelect(event) {
+        if (!event.target.selectedOptions) {
+            this.setState({
+                'users': []
+            })
+            return;
+        }
+
+        let users = []
+
+        for(let option of event.target.selectedOptions) {
+            users.push(option.value)
+        }
+
+        this.setState({
+            'users': users
+        })
     }
 
     handleSubmit(event) {
-        // console.log(this.state.title)
-        // console.log(this.state.author)
-        this.props.createProject(this.state.title, this.state.author)
+
+        this.props.createProject(this.state.title, this.state.users)
         event.preventDefault()
     }
 
+
     render() {
+
         return (
             <form onSubmit={(event) => this.handleSubmit(event)}>
-                <div className="form-group">
-                    <label for="title">title</label>
-                    <input type="text" name="title" placeholder="title"
-                           value={this.state.title} onChange={(event) => this.handleChange(event)}/>
-                </div>
 
-                <div className="form-group">
-                    <label for="author">author</label>
-                    <input type="number" name="author" placeholder="author"
-                           value={this.state.author} onChange={(event) => this.handleChange(event)}/>
-                    <input type="submit" value="Save"/>
-                </div>
 
+                <input type="text" name="title" placeholder="Title"
+                       value={this.state.title} onChange={(event) => this.handleChange(event)}/>
+
+
+                 {/*Выбор авторов*/}
+                <select name="author" multiple onChange={(event) => this.handleUsersSelect(event)}>
+                    {this.props.users.map((user) => <option value={user.id}>{user.first_name} {user.last_name}</option>)}
+                </select>
+                {/*<label htmlFor="users">users</label>*/}
+                {/*<input type="number" name="users" placeholder="User"*/}
+                {/*       value={this.state.users} onChange={(event) => this.handleChange(event)}/>*/}
+
+                <input type="submit" value="Create"/>
             </form>
-        )
-            ;
+        );
     }
 }
 

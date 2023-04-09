@@ -10,6 +10,7 @@ import LoginForm from "./components/Auth.js";
 import {Route, BrowserRouter, Routes, Link, Navigate} from "react-router-dom";
 import Cookies from "universal-cookie";
 import ProjectForm from "./components/ProjectForm.js";
+import TodoForm from "./components/TodoForm.js";
 
 
 class App extends React.Component {
@@ -25,14 +26,13 @@ class App extends React.Component {
         }
     }
 
-    createProject(title, author) {
-        console.log(title, author, 'createProject')
+    createProject(title, users) {
+        console.log(title, users, 'createProject')
         const headers = this.get_headers()
-        const data = {title: title, authors: [author]}
+        const data = {'title': title, 'authors': users}
         // console.log(data)
         axios.post(`http://127.0.0.1:8000/api/projects/`, data, {headers}).then(
             response => {
-
                 this.load_data()
             }
         ).catch(error => {
@@ -45,6 +45,31 @@ class App extends React.Component {
 
         const headers = this.get_headers()
         axios.delete(`http://127.0.0.1:8000/api/projects/${id}`, {headers}).then(response => {
+            this.load_data()
+
+        }).catch(error => console.log(error))
+    }
+
+
+    createTodo(text, project, author) {
+        console.log(text, project, author, 'createTodo')
+        const headers = this.get_headers()
+        const data = {'text': text, 'project': project, 'authors': author}
+        // console.log(data)
+        axios.post(`http://127.0.0.1:8000/api/todos/`, data, {headers}).then(
+            response => {
+                this.load_data()
+            }
+        ).catch(error => {
+            console.log(error)
+            this.setState({todos: []})
+        })
+    }
+
+    deleteTodo(id) {
+
+        const headers = this.get_headers()
+        axios.delete(`http://127.0.0.1:8000/api/todos/${id}`, {headers}).then(response => {
             this.load_data()
 
         }).catch(error => console.log(error))
@@ -162,8 +187,13 @@ class App extends React.Component {
                         <Route path='/projects' element={<ProjectList projects={this.state.projects}
                                                                       deleteProject={(id) => this.deleteProject(id)}/>}/>
                         <Route path='/projects/create' element={<ProjectForm
-                            createProject={(title, author) => this.createProject(title, author)}/>}/>
-                        <Route path='/todos' element={<TodoList todos={this.state.todos}/>}/>
+                            users={this.state.users}
+                            createProject={(title, users) => this.createProject(title, users)}/>}/>
+                        <Route path='/todos'
+                               element={<TodoList todos={this.state.todos} deleteTodo={(id) => this.deleteTodo(id)}/>}/>
+                        <Route path='/todos/create' element={<TodoForm
+                            author={this.state.users} project = {this.state.projects}
+                            createTodo={(text, project, author) => this.createTodo(text, project, author)}/>}/>
                         <Route path='/project' element={<Navigate to='/projects'/>}/>
                         <Route path='/todo' element={<Navigate to='/todos'/>}/>
                         <Route path='/login' element={<LoginForm
