@@ -1,8 +1,9 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import Project from "./Project";
 
 
-const TodoItem = ({todo, deleteTodo}) => {
+const TodoItem = ({todo,users, project, deleteTodo}) => {
 
     return (
         <tr>
@@ -35,7 +36,7 @@ const TodoItem = ({todo, deleteTodo}) => {
 
 }
 
-const TodoList = ({todos, deleteTodo}) => {
+const TodoList = ({todos, users, project, deleteTodo}) => {
     return (
         <div>
             <table>
@@ -58,7 +59,7 @@ const TodoList = ({todos, deleteTodo}) => {
                     authors
                 </th>
 
-                {todos.map((todo) => < TodoItem todo={todo} deleteTodo={deleteTodo}/>)}
+                {todos.map((todo) => < TodoItem users= {users} projects={project} todo={todo} deleteTodo={deleteTodo}/>)}
             </table>
             <Link to='/todos/create'>Create</Link>
         </div>

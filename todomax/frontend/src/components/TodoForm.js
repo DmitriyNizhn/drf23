@@ -15,29 +15,9 @@ class TodoForm extends React.Component {
         )
     }
 
-    handleUsersSelect(event) {
-        if (!event.target.selectedOptions) {
-            this.setState({
-                'users': []
-            })
-            return;
-        }
-
-        let users = []
-
-        for (let option of event.target.selectedOptions) {
-            users.push(option.value)
-        }
-
-        this.setState({
-            'users': users
-        })
-    }
 
     handleSubmit(event) {
-        // console.log(this.state.text)
-        // console.log(this.state.project)
-        // console.log(this.state.author)
+
         this.props.createTodo(this.state.text, this.state.project, this.state.author)
         event.preventDefault()
     }
@@ -48,12 +28,9 @@ class TodoForm extends React.Component {
         return (
             <form onSubmit={(event) => this.handleSubmit(event)}>
 
-
                 <input type="text" name="text" placeholder="Text"
                        value={this.state.text} onChange={(event) => this.handleChange(event)}/>
 
-
-                {/*Выбор авторов*/}
                 <select name="author" onChange={(event) => this.handleChange(event)}>
                     {this.props.author.map((user) => <option
                         value={user.id}>{user.first_name} {user.last_name}</option>)}
@@ -62,9 +39,7 @@ class TodoForm extends React.Component {
                     {this.props.project.map((item) => <option
                         value={item.id}>{item.title} </option>)}
                 </select>
-                {/*<label htmlFor="users">users</label>*/}
-                {/*<input type="number" name="users" placeholder="User"*/}
-                {/*       value={this.state.users} onChange={(event) => this.handleChange(event)}/>*/}
+
 
                 <input type="submit" value="Create"/>
             </form>

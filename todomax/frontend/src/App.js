@@ -24,6 +24,7 @@ class App extends React.Component {
             // 'projectsInfo': [],
 
         }
+
     }
 
     createProject(title, users) {
@@ -184,15 +185,17 @@ class App extends React.Component {
 
                     <Routes>
                         <Route path='/' element={<UserList users={this.state.users}/>}/>
-                        <Route path='/projects' element={<ProjectList projects={this.state.projects}
-                                                                      deleteProject={(id) => this.deleteProject(id)}/>}/>
+                        <Route path='/projects'
+                               element={<ProjectList users={this.state.users} projects={this.state.projects}
+                                                     deleteProject={(id) => this.deleteProject(id)}/>}/>
                         <Route path='/projects/create' element={<ProjectForm
                             users={this.state.users}
                             createProject={(title, users) => this.createProject(title, users)}/>}/>
-                        <Route path='/todos'
-                               element={<TodoList todos={this.state.todos} deleteTodo={(id) => this.deleteTodo(id)}/>}/>
+                        <Route path='/todos' users={this.state.users}
+                               element={<TodoList users={this.state.users} projects={this.state.projects}
+                                                  todos={this.state.todos} deleteTodo={(id) => this.deleteTodo(id)}/>}/>
                         <Route path='/todos/create' element={<TodoForm
-                            author={this.state.users} project = {this.state.projects}
+                            author={this.state.users} project={this.state.projects}
                             createTodo={(text, project, author) => this.createTodo(text, project, author)}/>}/>
                         <Route path='/project' element={<Navigate to='/projects'/>}/>
                         <Route path='/todo' element={<Navigate to='/todos'/>}/>
