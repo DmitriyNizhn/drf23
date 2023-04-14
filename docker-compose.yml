@@ -10,7 +10,14 @@ services:
     environment:
       POSTGRES_USER: 'dmitriy'
       POSTGRES_PASSWORD: 'qwerty'
-      POSTGRES_DB: 'todomax'
+      POSTGRES_DB: 'db'
+  adminer:
+    image: adminer:4.7.8-standalone
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
 
 
 
