@@ -1,0 +1,16 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres:13.1
+    privileged: True
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: 'dmitriy'
+      POSTGRES_PASSWORD: 'qwerty'
+      POSTGRES_DB: 'todomax'
+
+
+
