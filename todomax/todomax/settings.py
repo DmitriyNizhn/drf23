@@ -27,17 +27,12 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-    'http://172.22.128.1:3000',
-    'http://localhost:8000',
-    'http://127.0.0.1:8000',
-    'http://172.22.128.1:8000',
+
+    'http://0.0.0.0:80',
 
 ]
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ALL_ORIGINS = True
+
 # Application definition
 
 INSTALLED_APPS = [
