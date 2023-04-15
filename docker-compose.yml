@@ -10,12 +10,14 @@ services:
     environment:
       POSTGRES_USER: 'dmitriy'
       POSTGRES_PASSWORD: 'qwerty'
-      POSTGRES_DB: 'db'
+      POSTGRES_DB: 'todomax'
   backend:
     build: ./todomax
     privileged: true
     ports:
       - 8080:8080
+    depends_on:
+      - db
     command: bash -c "
       python manage.py migrate &&
       python manage.py create_users 2 &&
@@ -26,13 +28,11 @@ services:
       - 8000:80
     depends_on:
       - backend
+
   frontend:
     build: ./frontend
     ports:
       - 80:80
     depends_on:
       - nginx
-
-
-
 

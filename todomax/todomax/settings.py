@@ -103,7 +103,7 @@ WSGI_APPLICATION = 'todomax.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db',
+        'NAME': 'todomax',
         'PASSWORD': 'qwerty',
         'USER': 'dmitriy',
         'HOST': 'db',
