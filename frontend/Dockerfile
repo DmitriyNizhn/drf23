@@ -1,5 +1,5 @@
-FROM nginx:latest
+FROM nginx:1.19-alpine
 
-COPY ./build /var/www
+COPY ./build /var/www/
 
-COPY nginx.conf /etc/nginx/conf.conf
+COPY nginx.conf /etc/nginx/nginx.conf
